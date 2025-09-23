@@ -8,7 +8,7 @@
 
   let ecc = $state(0.7);
   let time = $state(0);
-  let numbody = $state("twobody");
+  let numbody = $state("onebody");
   let period = $state(3);
   let mass1 = $state(0.5);
   let mass2 = $state(0.5);
