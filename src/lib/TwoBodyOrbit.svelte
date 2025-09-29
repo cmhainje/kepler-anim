@@ -33,10 +33,25 @@
   let y2 = $derived(r2 * Math.sin(phi));
   let px2 = $derived(cx + x2);
   let py2 = $derived(cy - y2);
+
+  let fx1 = $derived(cx + 2 * a1 * ecc);
+  let fx2 = $derived(cx - 2 * a2 * ecc);
 </script>
 
 <div>
   <svg {width} {height}>
+    <g class="Focus">
+      <line x1={cx-2} y1={cy-2} x2={cx+2} y2={cy+2}></line>
+      <line x1={cx-2} y1={cy+2} x2={cx+2} y2={cy-2}></line>
+    </g>
+    <g class="Focus">
+      <line x1={fx1-2} y1={cy-2} x2={fx1+2} y2={cy+2}></line>
+      <line x1={fx1-2} y1={cy+2} x2={fx1+2} y2={cy-2}></line>
+    </g>
+    <g class="Focus">
+      <line x1={fx2-2} y1={cy-2} x2={fx2+2} y2={cy+2}></line>
+      <line x1={fx2-2} y1={cy+2} x2={fx2+2} y2={cy-2}></line>
+    </g>
     <ellipse cx={cx + a1 * ecc} {cy} rx={a1} ry={b1}></ellipse>
     <ellipse cx={cx - a2 * ecc} {cy} rx={a2} ry={b2}></ellipse>
     <circle class="Planet" cx={px1} cy={py1} r={12}></circle>
@@ -64,5 +79,9 @@
     dominant-baseline: central;
     fill: white;
     font-weight: 700;
+  }
+  g.Focus {
+    stroke: black;
+    fill: none;
   }
 </style>
