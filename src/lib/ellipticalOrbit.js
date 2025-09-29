@@ -51,6 +51,7 @@ export class Elliptic {
   }
 
   phi(t) {
+    if (t === 0) return 0;
     let tIndex = d3.bisectLeft(this.interpTime, t);
     if (tIndex == this.interpTime.length - 1) {
       tIndex -= 1;

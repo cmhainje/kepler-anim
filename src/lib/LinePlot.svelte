@@ -75,7 +75,7 @@
   >
   <path fill="none" stroke="currentColor" stroke-width="1.5" d={line(data)} />
 
-  {#if !!xMarker && !!yMarker}
+  {#if xMarker !== undefined && yMarker !== undefined}
     <circle cx={x(xMarker)} cy={y(yMarker)} r="5" />
   {/if}
 </svg>

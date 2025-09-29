@@ -24,8 +24,8 @@
       .map((x) => (x * 2 * Math.PI) / numPlotPoints),
   ];
   let plotTime = $derived(plotPhi.map((phi) => ell.t(phi)));
-  let plotR = $derived(plotPhi.map((phi) => ell.r(phi)));
-  let plotVr = $derived(plotPhi.map((phi) => ell.rDot(phi)));
+  let plotR    = $derived(plotPhi.map((phi) => ell.r(phi)));
+  let plotVr   = $derived(plotPhi.map((phi) => ell.rDot(phi)));
   let plotVphi = $derived(plotPhi.map((phi) => ell.r(phi) * ell.phiDot(phi)));
 
   let playingTimer = null;
