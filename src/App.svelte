@@ -280,7 +280,7 @@
 
     display: flex;
     flex-direction: column;
-    width: 30ch;
+    width: 32ch;
   }
 
   .inputs[open] {
