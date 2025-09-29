@@ -4,9 +4,9 @@
     phi = 0,
     m1 = 0.5,
     m2 = 0.5,
-    width = 600,
-    height = 600,
   } = $props();
+
+  const width = 100, height = 100;
 
   // ellipse
   let cx = $derived(0.5 * width);
@@ -38,28 +38,26 @@
   let fx2 = $derived(cx - 2 * a2 * ecc);
 </script>
 
-<div>
-  <svg {width} {height}>
-    <g class="Focus">
-      <line x1={cx-2} y1={cy-2} x2={cx+2} y2={cy+2}></line>
-      <line x1={cx-2} y1={cy+2} x2={cx+2} y2={cy-2}></line>
-    </g>
-    <g class="Focus">
-      <line x1={fx1-2} y1={cy-2} x2={fx1+2} y2={cy+2}></line>
-      <line x1={fx1-2} y1={cy+2} x2={fx1+2} y2={cy-2}></line>
-    </g>
-    <g class="Focus">
-      <line x1={fx2-2} y1={cy-2} x2={fx2+2} y2={cy+2}></line>
-      <line x1={fx2-2} y1={cy+2} x2={fx2+2} y2={cy-2}></line>
-    </g>
-    <ellipse cx={cx + a1 * ecc} {cy} rx={a1} ry={b1}></ellipse>
-    <ellipse cx={cx - a2 * ecc} {cy} rx={a2} ry={b2}></ellipse>
-    <circle class="Planet" cx={px1} cy={py1} r={12}></circle>
-    <circle class="Planet" cx={px2} cy={py2} r={12}></circle>
-    <text class="Planet" x={px1} y={py1}>1</text>
-    <text class="Planet" x={px2} y={py2}>2</text>
-  </svg>
-</div>
+<svg width="100%" height="100%">
+  <g class="Focus">
+    <line x1="{cx-0.3}%" y1="{cy-0.3}%" x2="{cx+0.3}%" y2="{cy+0.3}%"></line>
+    <line x1="{cx-0.3}%" y1="{cy+0.3}%" x2="{cx+0.3}%" y2="{cy-0.3}%"></line>
+  </g>
+  <g class="Focus">
+    <line x1="{fx1-0.3}%" y1="{cy-0.3}%" x2="{fx1+0.3}%" y2="{cy+0.3}%"></line>
+    <line x1="{fx1-0.3}%" y1="{cy+0.3}%" x2="{fx1+0.3}%" y2="{cy-0.3}%"></line>
+  </g>
+  <g class="Focus">
+    <line x1="{fx2-0.3}%" y1="{cy-0.3}%" x2="{fx2+0.3}%" y2="{cy+0.3}%"></line>
+    <line x1="{fx2-0.3}%" y1="{cy+0.3}%" x2="{fx2+0.3}%" y2="{cy-0.3}%"></line>
+  </g>
+  <ellipse cx="{cx + a1 * ecc}%" cy="{cy}%" rx="{a1}%" ry="{b1}%"></ellipse>
+  <ellipse cx="{cx - a2 * ecc}%" cy="{cy}%" rx="{a2}%" ry="{b2}%"></ellipse>
+  <circle class="Planet" cx="{px1}%" cy="{py1}%" r="2%"></circle>
+  <circle class="Planet" cx="{px2}%" cy="{py2}%" r="2%"></circle>
+  <text class="Planet" x="{px1}%" y="{py1}%" font-size="12">1</text>
+  <text class="Planet" x="{px2}%" y="{py2}%" font-size="12">2</text>
+</svg>
 
 <style>
   ellipse {

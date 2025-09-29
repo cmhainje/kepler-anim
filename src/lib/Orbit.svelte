@@ -1,5 +1,7 @@
 <script>
-  let { ecc, phi = 0, width = 600, height = 600 } = $props();
+  let { ecc, phi = 0 } = $props();
+
+  const width = 100, height = 100;
 
   // ellipse
   let cx = $derived(0.5 * width);
@@ -19,13 +21,11 @@
   let py = $derived(cy - y);
 </script>
 
-<div>
-  <svg {width} {height}>
-    <ellipse {cx} {cy} rx={a} ry={b}></ellipse>
-    <circle class="Sun" cx={fx} cy={fy} r={16}></circle>
-    <circle class="Planet" cx={px} cy={py} r={6}></circle>
-  </svg>
-</div>
+<svg width="100%" height="100%">
+  <ellipse cx="{cx}%" cy="{cy}%" rx="{a}%" ry="{b}%"></ellipse>
+  <circle class="Sun" cx="{fx}%" cy="{fy}%" r="3%"></circle>
+  <circle class="Planet" cx="{px}%" cy="{py}%" r="1%"></circle>
+</svg>
 
 <style>
   ellipse {

@@ -76,19 +76,9 @@
       </select>
       body problem
     </h1>
-    <div class="inputs">
-      <div class="onebody">
-        <input
-          type="range"
-          id="eccentricity"
-          name="eccentricity"
-          min="0"
-          max="0.99"
-          step="0.01"
-          bind:value={ecc}
-        />
-        <label for="eccentricity">eccentricity = {ecc}</label>
-        <br />
+    <details class="inputs" open>
+      <summary>controls</summary>
+      <div class="slider">
         <input
           type="range"
           id="period"
@@ -99,31 +89,21 @@
           bind:value={period}
         />
         <label for="period">period = {period} seconds</label>
-        <br />
+      </div>
+      <div class="slider">
         <input
           type="range"
-          id="time"
-          name="time"
+          id="eccentricity"
+          name="eccentricity"
           min="0"
-          max="1"
-          step="0.001"
-          bind:value={time}
+          max="0.99"
+          step="0.01"
+          bind:value={ecc}
         />
-        <label for="time">time = {Math.round(time * 1000) / 1000}</label>
-        <br />
-        <button
-          type="button"
-          onclick={() => {
-            if (!playing) {
-              startPlaying();
-            } else {
-              stopPlaying();
-            }
-          }}>{playing ? "pause" : "play"}</button
-        >
+        <label for="eccentricity">eccentricity = {ecc}</label>
       </div>
       {#if numbody === "twobody"}
-        <div class="twobody">
+        <div class="slider">
           <input
             type="range"
             id="mass1"
@@ -134,7 +114,8 @@
             bind:value={mass1}
           />
           <label for="mass1">mass1 = {Math.round(mass1 * 1000) / 1000}</label>
-          <br />
+        </div>
+        <div class="slider">
           <input
             type="range"
             id="mass2"
@@ -145,20 +126,47 @@
             bind:value={mass2}
           />
           <label for="mass2">mass2 = {Math.round(mass2 * 1000) / 1000}</label>
-          <br />
-          <button type="button" onclick={defaultSetting}>reset to default</button>
-          <button type="button" onclick={moonSetting}>Moon/Earth</button>
-          <button type="button" onclick={jupiterSetting}>Jupiter/Sun</button>
+        </div>
+        <div class="buttons">
+          <button type="button" onclick={defaultSetting}>defaults   </button>
+          <button type="button" onclick={moonSetting}   >Moon+Earth </button>
+          <button type="button" onclick={jupiterSetting}>Jupiter+Sun</button>
         </div>
       {/if}
+    </details>
+    <div class="slider">
+      <button
+        type="button"
+        class="playpause"
+        onclick={() => {
+          if (!playing) {
+            startPlaying();
+          } else {
+            stopPlaying();
+          }
+        }}>{playing ? "pause" : "play"}</button
+      >
+      <label for="time">time = <span class="time">{Math.round(time * 1000) / 1000}</span></label>
+      <input
+        type="range"
+        id="time"
+        name="time"
+        min="0"
+        max="1"
+        step="0.001"
+        bind:value={time}
+      />
     </div>
   </div>
 
   {#if numbody === "onebody"}
     <div class="plotarea">
       <div class="orbit">
-        <Orbit {ecc} {phi}></Orbit>
+        <div class="orbit-square">
+          <Orbit {ecc} {phi}></Orbit>
+        </div>
       </div>
+      <div class="lines">
       <div class="line">
         <LinePlot
           data={plotTime.map((t, i) => [t, plotR[i]])}
@@ -197,12 +205,16 @@
           yMarker={ell.r(phi) * ell.phiDot(phi)}
         ></LinePlot>
       </div>
+      </div>
     </div>
   {:else}
     <div class="plotarea">
       <div class="orbit">
-        <TwoBodyOrbit {ecc} {phi} m1={mass1} m2={mass2}></TwoBodyOrbit>
+        <div class="orbit-square">
+          <TwoBodyOrbit {ecc} {phi} m1={mass1} m2={mass2}></TwoBodyOrbit>
+        </div>
       </div>
+      <div class="lines">
       <div class="line">
         <LinePlot
           data={plotTime.map((t, i) => [t, plotR[i]])}
@@ -241,6 +253,7 @@
           yMarker={mass1 * ell.r(phi)}
         ></LinePlot>
       </div>
+      </div>
     </div>
   {/if}
 </main>
@@ -259,37 +272,109 @@
     font: inherit;
   }
 
-  div.inputs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  .inputs {
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    margin-bottom: 0.5em; 
+    padding: 0.5em 1em ;
+
+    display: flex;
+    flex-direction: column;
+    width: 300px;
   }
 
-  div.inputs input {
+  .inputs[open] {
+    padding: 0.5em 1em;
+  }
+
+  .inputs summary {
+    user-select: none;
+    font-weight: 600;
+  }
+
+  .inputs[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-left: -1em;
+    margin-right: -1em;
+    padding-left: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .inputs input {
     color: #888;
   }
 
   div.plotarea {
     max-width: 750px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    row-gap: 1px;
-    column-gap: 1px;
+    gap: 1px;
     background-color: #888;
     border: 1px solid #888;
     margin: 20px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  div.lines {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  @media (max-width: 640px) {
+    .inputs {
+      grid-template-columns: 1fr;
+    }
+
+    div.plotarea {
+      flex-direction: column;
+    }
+
+    div.lines {
+      flex-direction: row;
+      overflow-x: auto;
+    }
   }
 
   div.orbit {
-    grid-column-start: 1;
-    grid-column-end: 5;
-    grid-row-start: 1;
-    grid-row-end: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     padding: 0px;
     background-color: white;
+
+    flex-shrink: 0;
+    flex-grow: 1;
+  }
+
+  div.orbit-square {
+    width: 100%;
+    aspect-ratio: 1 / 1;
   }
 
   div.line {
     background-color: white;
   }
+
+  span.time {
+    display: inline-block;
+    width: 4ch;
+  }
+
+  div.slider {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+  }
+
+  div.buttons {
+    margin: 0.25em 0;
+  }
+
+  button.playpause {
+    width: 8ch;
+  }
+
 </style>
