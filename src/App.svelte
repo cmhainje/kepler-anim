@@ -42,6 +42,21 @@
     window.clearInterval(playingTimer);
   }
 
+  function defaultSetting() {
+    mass1 = 0.5;
+    ecc = 0.7;
+  }
+
+  function moonSetting() {
+    mass1 = 0.01215;
+    ecc = 0.0554;
+  }
+
+  function jupiterSetting() {
+    mass1 = 0.000954;
+    ecc = 0.0484;
+  }
+
   $effect(() => {
     mass1;
     mass2 = 1.0 - mass1;
@@ -130,6 +145,10 @@
             bind:value={mass2}
           />
           <label for="mass2">mass2 = {Math.round(mass2 * 1000) / 1000}</label>
+          <br />
+          <button type="button" onclick={defaultSetting}>reset to default</button>
+          <button type="button" onclick={moonSetting}>Moon/Earth</button>
+          <button type="button" onclick={jupiterSetting}>Jupiter/Sun</button>
         </div>
       {/if}
     </div>
