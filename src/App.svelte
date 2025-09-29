@@ -88,7 +88,7 @@
           step="0.1"
           bind:value={period}
         />
-        <label for="period">period = {period} seconds</label>
+        <label for="period">duration = {period} seconds</label>
       </div>
       <div class="slider">
         <input
@@ -280,7 +280,7 @@
 
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 30ch;
   }
 
   .inputs[open] {
