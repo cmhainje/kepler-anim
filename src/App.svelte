@@ -17,7 +17,7 @@
   let ell = $derived(new Elliptic(1, ecc));
   let phi = $derived(ell.phi(time));
 
-  let numPlotPoints = 100;
+  let numPlotPoints = 1000;
   let plotPhi = [
     ...Array(numPlotPoints)
       .keys()
